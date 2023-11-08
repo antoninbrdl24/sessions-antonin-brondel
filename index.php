@@ -1,5 +1,25 @@
 <?php require 'inc/data/products.php'; ?>
-<?php require 'inc/head.php'; ?>
+<?php require 'inc/head.php'; 
+
+session_start(); 
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php');
+    exit;
+}
+
+if(isset($_GET['add_to_cart'])) {
+    $cookieId = $_GET['add_to_cart'];
+
+    // Ajouter le cookie à la session
+    if(!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = [];
+    }
+
+    if(!in_array($cookieId, $_SESSION['cart'])) {
+        $_SESSION['cart'][] = $cookieId;
+    }
+}
+?>
 <section class="cookies container-fluid">
     <div class="row">
         <?php foreach ($catalog as $id => $cookie) { ?>

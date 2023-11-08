@@ -1,4 +1,21 @@
-<?php require 'inc/head.php'; ?>
+<?php require 'inc/head.php'; 
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+ 
+    $username = isset($_POST['loginname']) ? $_POST['loginname'] : null;
+    $password = isset($_POST['password']) ? $_POST['password'] : null;
+
+    if ($username === 'antobrdl24*' && $password === 'enfinfin24*') {
+        session_start();
+        $_SESSION['username'] = $username;
+        header('Location: index.php');
+        exit;
+    } else {
+        echo 'Identifiants invalides. Veuillez réessayer.';
+    }
+}
+?>
 <div class="container" style="margin-top:40px">
     <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">
@@ -25,6 +42,15 @@
                                             </span>
                                             <input class="form-control" placeholder="Username" name="loginname"
                                                    type="text" autofocus>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                              <i class="glyphicon glyphicon-lock"></i>
+                                            </span>
+                                            <input class="form-control" placeholder="Password" name="password"
+                                                   type="password">
                                         </div>
                                     </div>
                                     <div class="form-group">
